@@ -245,6 +245,7 @@ public class TreeGUI extends JFrame {
 					if (n == tree.value && tree.left==null && tree.right==null) {
 						tree = null; // 
 						outputPanel.clearPanel();
+						tm.set_state(treeBeforeDelete);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Cannot delete non-existent value " + n);
@@ -264,12 +265,15 @@ public class TreeGUI extends JFrame {
 						outputPanel.clearPanel();
 					}else {
 						tree = tm.get_state();
-							outputPanel.drawTree(tree);
+						outputPanel.drawTree(tree);
 					}
 				}else {
-					tm.get_state();
+					tree = tm.get_state();
+					if(tree !=null)
+						outputPanel.drawTree(tree);
+					else
+						outputPanel.clearPanel();
 				}
-				
 
 			}	 
 		});
@@ -359,7 +363,7 @@ class TreeMemento {
 		try {
 			t = state.pop();
 		} catch (EmptyStackException e3) {
-			JOptionPane.showMessageDialog(null, "Cannot perform undo on an empty tree.");
+			JOptionPane.showMessageDialog(null, "No more undo operations are possible");
 			t = null;
 		}
 		return t;
