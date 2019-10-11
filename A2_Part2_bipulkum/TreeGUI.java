@@ -196,15 +196,16 @@ public class TreeGUI extends JFrame {
 			        		 previousTree = null;
 			        		 tm.set_state(previousTree);
 			        	 }
-			        	 else 
-				        		try {
-									previousTree = (AbsTree)tree.clone();
-								} catch (CloneNotSupportedException e1) {
-									e1.printStackTrace();
-								}
-			        		 b = tree.insert(Integer.parseInt(s));
+			        	 else {
+			        		try {
+								previousTree = (AbsTree)tree.clone();
+							} catch (CloneNotSupportedException e1) {
+								e1.printStackTrace();
+							}
+			        		b = tree.insert(Integer.parseInt(s));
 							if(b)
 								tm.set_state(previousTree);
+			        	 }
 			         } catch (NumberFormatException e2) {
 							 	JOptionPane.showMessageDialog(null, "Bad integer: " + s + ". Please re-enter.");
 							 	return;
@@ -367,7 +368,6 @@ class TreeMemento {
 		AbsTree t = null;
 		try {
 			t = state.pop();
-//			t = state.peek();
 		} catch (EmptyStackException e3) {
 			JOptionPane.showMessageDialog(null, "No more undo operations are possible");
 			t = null;
@@ -397,7 +397,6 @@ abstract class AbsTree implements Cloneable {
 	}
 	public AbsTree clone() throws CloneNotSupportedException {
 		 // fill in code here
-//		return (AbsTree) super.clone();
 		AbsTree tr = null;
 		try {
 			tr = (AbsTree) 
