@@ -271,7 +271,6 @@ public class TreeGUI extends JFrame {
 							outputPanel.drawTree(tree);
 						else
 							outputPanel.clearPanel();
-//						outputPanel.drawTree(tree);
 					}
 				}else {
 					tree = tm.get_state();
@@ -280,9 +279,6 @@ public class TreeGUI extends JFrame {
 					else
 						outputPanel.clearPanel();
 				}
-				
-//				tree = tm.get_state();
-//				outputPanel.drawTree(tree);
 
 			}	 
 		});
