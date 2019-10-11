@@ -193,6 +193,8 @@ public class TreeGUI extends JFrame {
 			        		 else
 							 	tree = new DupTree(Integer.parseInt(s));
 			        		 b = true;
+			        		 previousTree = null;
+			        		 tm.set_state(previousTree);
 			        	 }
 			        	 else 
 				        		try {
@@ -265,7 +267,11 @@ public class TreeGUI extends JFrame {
 						outputPanel.clearPanel();
 					}else {
 						tree = tm.get_state();
-						outputPanel.drawTree(tree);
+						if(tree !=null)
+							outputPanel.drawTree(tree);
+						else
+							outputPanel.clearPanel();
+//						outputPanel.drawTree(tree);
 					}
 				}else {
 					tree = tm.get_state();
@@ -274,6 +280,9 @@ public class TreeGUI extends JFrame {
 					else
 						outputPanel.clearPanel();
 				}
+				
+//				tree = tm.get_state();
+//				outputPanel.drawTree(tree);
 
 			}	 
 		});
@@ -362,6 +371,7 @@ class TreeMemento {
 		AbsTree t = null;
 		try {
 			t = state.pop();
+//			t = state.peek();
 		} catch (EmptyStackException e3) {
 			JOptionPane.showMessageDialog(null, "No more undo operations are possible");
 			t = null;
