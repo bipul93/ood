@@ -78,7 +78,7 @@ class BST_DupTree_Test {
 		if(count > 1) {
 			assertTrue(count-1 == new_count);
 		}
-		System.out.println("... DupTree delete test passed");
+		System.out.println("DupTree delete test passed");
 		System.out.println("DupTree invariant maintained");
 		System.out.println("-------------------------");
 				

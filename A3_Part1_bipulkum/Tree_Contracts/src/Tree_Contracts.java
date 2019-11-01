@@ -161,11 +161,7 @@ class AbsTree {
 	@Requires({"member(n)", "(left != null || right != null) || find(n).get_count() > 1"}) // code here
 
 	public boolean delete(int n) {  
-//		System.out.println(iterator().next());
-//		System.out.println(n);
-//		System.out.println(value);
-//		System.out.println(left);
-//		System.out.println(right);
+
 		AbsTree t = find(n);
 
 		if (t == null) { // n is not in the tree
@@ -465,4 +461,3 @@ class AbsTree_Iterator {
 	private int value;
 	private int count = 0;
 }
-
