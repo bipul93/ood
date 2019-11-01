@@ -158,7 +158,7 @@ class AbsTree {
 	// The pre-condition should apply to trees and duptrees and should
         // that the last value cannot be deleted from a tree or duptree
 
-	@Requires({"member(n)", "iterator().next() != value"}) // code here
+	@Requires({"member(n)", "(left != null || right != null) || find(n).get_count() > 1"}) // code here
 
 	public boolean delete(int n) {  
 //		System.out.println(iterator().next());
@@ -253,7 +253,7 @@ class AbsTree {
 	}
 
 	// @Requires("true")
-	@Ensures("result == null || result instanceof AbsTree") // code here
+	@Ensures("result == null || result.value == n && result instanceof AbsTree") // code here
 	protected AbsTree find(int n) {
 		if (value == n)
 			return this;
@@ -317,7 +317,7 @@ class Tree extends AbsTree {
 
 	// state the post-condition for Tree.delete
 	// (the pre-condition is from AbsTree.delete)
-	@Ensures("true")	//code here
+	@Ensures({"true", "!member(n)"})	//code here
 	public boolean delete(int n) {
 		return super.delete(n);
 	}
@@ -351,9 +351,16 @@ class DupTree extends AbsTree {
 	// state the post-condition for DupTree.insert
 	// 	(the pre-condition is "true")
 
-	@Ensures("true") //code here
+	@Ensures({"true", "old_n_count == n_count-1"}) //code here
 	public boolean insert(int n) {
-		return super.insert(n);
+		AbsTree node = find(n);
+		old_n_count = 0;
+		if(node != null){
+			old_n_count = node.get_count();
+		}
+		Boolean insert_ = super.insert(n);
+		n_count = find(n).get_count();
+		return insert_;
 		// Invoke super.insert(n) to perform insertion
 		// into duptree.  Write extra code to facilitae
 		// the statement of the post-condition.
@@ -361,9 +368,18 @@ class DupTree extends AbsTree {
 	
 	// state the pre-condition for DupTree.delete
 	// (the pre-condition is from AbsTree.delete)
-	@Ensures("true") //code here
+	@Ensures({"true", "old_n_count-1 == n_count"}) //code here
 	public boolean delete(int n) {
-		return super.delete(n);
+		AbsTree node = find(n);
+		if(node != null){
+			old_n_count = node.get_count();
+		}
+		n_count = 0;
+		Boolean delete_ = super.delete(n);
+		node = find(n);
+		if(node != null)
+			n_count = node.get_count();
+		return delete_;
 		// Invoke super.delete(n) to delete n from duptree.
 		// Write extra code to facilitate the statement
 		// of the post-condition.
